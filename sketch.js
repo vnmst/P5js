@@ -131,7 +131,7 @@ function setup() {
 
   startButton = createButton("🐯 Retire sua recompensa");
   startButton.position(width / 2 - 80, height / 2 - 25);
-  startButton.size(width / 4, deight / 4);
+  startButton.size(width / 3, deight / 3);
   startButton.style("font-size", "25px");
   startButton.style("border", "none");
   startButton.style("border-radius", "10px");
