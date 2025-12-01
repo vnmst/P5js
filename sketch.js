@@ -162,12 +162,13 @@ function setup() {
   for (let i = 0; i < numPads; i++) {
   images[i].resize(padSize-10, padSize-10);
 }
-  recompensa.play();
+  //recompensa.play();
 }
 
 // ---------------- DRAW ----------------
 function draw() {
       background(0);
+  //masterVolume(0.6);
   // Atualiza cores RGB
   r += dr; g += dg; b += db;
   if (r > 255 || r < 0) dr *= -1;
@@ -177,6 +178,7 @@ function draw() {
   if (!audioStarted) {
     // Background escuro
     background(0);
+    p5.soundOut.output.gain.value = 0.5;
 
     // Cria flashes aleatórios
     if (random() < 0.05) { // chance de criar um flash a cada frame
@@ -188,6 +190,9 @@ function draw() {
         color: [random(360), 100, 100]
       });
     } 
+    
+    // --- limitar quantidade de flashes (cole aqui!) ---
+  if (flashes.length > 25) flashes.shift();
 
     // Desenha flashes
     for (let i = flashes.length - 1; i >= 0; i--) {
@@ -196,22 +201,20 @@ function draw() {
       fill(f.color[0], f.color[1], f.color[2], f.alpha);
       ellipse(f.x, f.y, f.size);
       f.alpha -= 5;  // fade
-      f.size += 2;    // explode levemente
+      f.size += 1;    // explode levemente
       if (f.alpha <= 0) flashes.splice(i, 1); // remove quando sumir
     }
 
     // Botão brilhando
     startButton.style("background-color", `rgb(${r},${g},${b})`);
-    startButton.style(
-      "box-shadow",
-      `0 0 20px rgb(${r},${g},${b}), 0 0 40px rgb(${r},${g},${b})`
-    );
+    startButton.style("filter", `brightness(1.4)`); 
   }
   
   if (audioStarted) {
      colorMode(RGB, 255);
     background(0); // após iniciar áudio
-    recompensa.stop();
+    p5.soundOut.output.gain.value = 0.5;
+    //recompensa.stop();
 
   // Troca automática de sons
   if (!swapped && millis() > swapDelay) {
