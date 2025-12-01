@@ -58,6 +58,8 @@ let distortion;
 let distortionStart = 0;
 let distortionActive = false;
 let delaysB = []; // delay individual para SoundB
+let globalFade = 0;      
+let fadeDuration = 60000;  // 15 segundos
 
 // ---------------- PRELOAD ----------------
 function preload() {
@@ -407,7 +409,12 @@ if (pad.looping && isSoundB[i] && delaysB[i] && sounds[i]) {
     }
   }
 }
+      if (infinitePhaseReached === true) {
+  setTimeout(() => {
+  
+}, 40000);  fadeOut()  
   }
+}
 
 // ---------------- SWAP SOUNDS ----------------
 function swapSounds() {
@@ -426,12 +433,32 @@ function swapSounds() {
   }
 
 function applySoundSwap() {
-  console.log("🔄 Aplicando troca de sons!");
-  for(let i=0;i<numPads;i++){
-    if(sounds[i]&&sounds[i].isPlaying) try{sounds[i].stop();}catch(e){}
-    if(newSounds[i]) { sounds[i]=newSounds[i]; isSoundB[i]=true; }
-  }
-  disableSpeed = true;
+  console.log("🔄 Aplicando troca de sons!");
+  for(let i=0;i<numPads;i++){
+    // 1. Parar o som atual (se estiver tocando)
+    if(sounds[i]&&sounds[i].isPlaying) try{sounds[i].stop();}catch(e){}
+
+    // 2. Se houver um novo som (B) carregado:
+    if(newSounds[i]) {
+      // 3. Atribuir o novo som e marcar como Sound B
+      sounds[i]=newSounds[i];
+      isSoundB[i]=true;
+
+      // ⚡ 4. REINICIAR O LOOP se o pad estiver ATIVO
+      if (pads[i] && pads[i].looping) { // Adicionado check para pads[i]
+        // Uso de setTimeout para garantir que o buffer de áudio esteja pronto
+        setTimeout(() => {
+          try {
+            // Dependendo da biblioteca, o 'loop()' pode ser a função correta
+            sounds[i].loop(); 
+          } catch (e) {
+            console.error(`Erro ao reiniciar loop no pad ${i}:`, e);
+          }
+        }, 200);
+      }
+    }
+  }
+  disableSpeed = true;
 }
 
 let currentPadToSwap = 0;
@@ -454,6 +481,16 @@ function applySingleSwap(i,newBuffer){
   sounds[i]=newBuffer; 
   isSoundB[i]=true;
   console.log(`🔄 Pad ${i} trocado individualmente!`);
+  
+   // ⚡ Reiniciar o loop, mas só se o pad está ativado
+  if (pads[i] && pads[i].looping) {
+    setTimeout(() => {
+      try {
+        sounds[i].loop();
+      } catch (e) {
+        console.error("Erro ao reiniciar loop:", e);
+      }
+    }, 200); }
   
     // Conectar o delayB automaticamente
   if (delaysB[i] && newBuffer) {
@@ -651,4 +688,27 @@ function centerCanvas() {
   let x = (windowWidth - width) / 2;
   let y = (windowHeight - height) / 2;
   canvas.position(x, y);
+}
+
+function fadeOut() {
+   let t = (millis() - finalFadeStart) / fadeDuration;
+    globalFade = constrain(t, 0, 1);
+
+    // fade visual
+    noStroke();
+    fill(0, globalFade * 255);
+    rect(0, 0, width, height);
+
+    // fade de volume do master
+    let vol = map(globalFade, 0, 1, 0.5, 0);  // de 0.5 para 0
+    try { p5.soundOut.output.gain.value = vol; } catch(e){}
+
+    // quando terminar, para tudo
+    if (globalFade === 1) {
+        for (let i = 0; i < numPads; i++) {
+            if (sounds[i] && sounds[i].stop) {
+                try { sounds[i].stop(); } catch(e){}
+            }
+        }
+    }
 }
