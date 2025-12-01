@@ -131,16 +131,16 @@ function setup() {
 
   startButton = createButton("🐯 Retire sua recompensa");
   startButton.position(width / 2 - 80, height / 2 - 25);
-  startButton.size(width / 3, deight / 3);
-  startButton.style("font-size", "25px");
+  startButton.size(160, 50);
+  startButton.style("font-size", "18px");
   startButton.style("border", "none");
   startButton.style("border-radius", "10px");
   startButton.style("color", "white");
   startButton.style("font-weight", "bold");
   startButton.style("cursor", "pointer");
   
-  startButton.mousePressed(botaosome);
-  startButton.touchStarted(botaosome);
+  startButton.mousePressed(startAudio);
+  startButton.touchStarted(startAudio);
 
   reverb = new p5.Reverb();
   delay = new p5.Delay();
@@ -162,7 +162,6 @@ function setup() {
   for (let i = 0; i < numPads; i++) {
   images[i].resize(padSize-10, padSize-10);
 }
-  startAudio();
   recompensa.play();
 }
 
@@ -450,10 +449,7 @@ function applySingleSwap(i,newBuffer){
   }
 }
 // ---------------- CONTROLES ----------------
-function startAudio() { //userStartAudio();
-}
-
-function botaosome() { audioStarted=true; startButton.hide(); }
+function startAudio() { userStartAudio(); audioStarted=true; startButton.hide(); }
 
 
 function insidePad(pad,x,y){ return x>pad.x && x<pad.x+pad.w && y>pad.y && y<pad.y+pad.h; }
