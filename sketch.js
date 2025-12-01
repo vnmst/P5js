@@ -418,12 +418,12 @@ function swapSounds() {
     loadSound(`Sound${i+1}B.wav`, (buf)=>{ newSounds[i]=buf; checkAllLoaded(); },
       ()=>{ loadSound(`Sound${i+1}B.mp3`, (buf)=>{ newSounds[i]=buf; checkAllLoaded(); }, ()=>{ newSounds[i]=null; checkAllLoaded(); }); });
   }
+}
 
   function checkAllLoaded() {
     newSoundsLoaded++;
     if (newSoundsLoaded===numPads) applySoundSwap();
   }
-}
 
 function applySoundSwap() {
   console.log("🔄 Aplicando troca de sons!");
@@ -620,7 +620,6 @@ function windowResized() {
     (height - startButton.height) / 2
   );
 }
-}
 
 function spawnFlash(){
   let word=random(flashWords), x=random(width), y=random(height);
@@ -650,7 +649,6 @@ function triggerPad(pad){
 
 function centerCanvas() {
   let x = (windowWidth - width) / 2;
-}
   let y = (windowHeight - height) / 2;
   canvas.position(x, y);
 }
