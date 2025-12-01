@@ -5,6 +5,7 @@ html, body {
  height: 100%;
   overflow: hidden;        /* impede scroll da página inteira */
   touch-action: none;      /* bloqueia gestures no mobile */
+   background-color: black;
 }
 
 canvas {
