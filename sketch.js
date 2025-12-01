@@ -214,7 +214,7 @@ function draw() {
   
   if (audioStarted) {
      colorMode(RGB, 255);
-    background(0); // após iniciar áudio
+    background(20); // após iniciar áudio
     p5.soundOut.output.gain.value = 0.5;
     //recompensa.stop();
 
