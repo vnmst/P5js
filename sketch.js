@@ -87,7 +87,7 @@ function preload() {
 
 // ---------------- SETUP ----------------
 function setup() {
-  let canvas = createCanvas(windowWidth, windowHeight);
+  let canvas = createCanvas(windowWidth / 2, windowHeight / 2.5);
   colorMode(HSB, 360, 100, 100, 255);
   rectMode(CORNER);
   imageMode(CENTER);
@@ -352,8 +352,8 @@ if (pad.looping && isSoundB[i] && delaysB[i] && sounds[i]) {
 }
   }
 
-  fill(255); textSize(16);
-  text("Vertical = Speed 🎚️   |   Horizontal = Delay Time ⏱️", width/2, height-40);
+  fill(255); textSize(10);
+  text("Vertical = Speed 🎚️   |   Horizontal = Delay Time ⏱️", width/2, height-200);
 
   // Text flashes
   if (textFlashActive) {
