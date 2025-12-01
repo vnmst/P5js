@@ -164,7 +164,10 @@ canvas = createCanvas(windowWidth / 1.2, windowHeight / 1.2);
   for (let i = 0; i < numPads; i++) {
   images[i].resize(padSize-10, padSize-10);
 }
-  //recompensa.play();
+  setTimeout(() => {
+  document.documentElement.style.backgroundColor = "black";
+  document.body.style.backgroundColor = "black";
+}, 50);
 }
 
 // ---------------- DRAW ----------------
