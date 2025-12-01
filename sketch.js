@@ -132,7 +132,7 @@ canvas = createCanvas(windowWidth / 1.2, windowHeight / 1.2);
   }
 
   startButton = createButton("🐯 Retire sua recompensa");
-  startButton.position(width / 2 - 80, height / 2 - 25);
+  startButton.position(width / 2 , height / 2 );
   startButton.size(160, 50);
   startButton.style("font-size", "18px");
   startButton.style("border", "none");
@@ -140,6 +140,12 @@ canvas = createCanvas(windowWidth / 1.2, windowHeight / 1.2);
   startButton.style("color", "white");
   startButton.style("font-weight", "bold");
   startButton.style("cursor", "pointer");
+
+  startButton.position(
+    (width - startButton.width) / 2,
+    (height - startButton.height) / 2
+  );
+}
   
   startButton.mousePressed(startAudio);
   startButton.touchStarted(startAudio);
@@ -357,7 +363,7 @@ if (pad.looping && isSoundB[i] && delaysB[i] && sounds[i]) {
 }
   }
 
-  fill(255); textSize(10);
+  fill(255); textSize(18);
   text("Vertical = Speed 🎚️   |   Horizontal = Delay Time ⏱️", width/2, height-200);
 
   // Text flashes
@@ -609,6 +615,11 @@ function touchEnded() {
 function windowResized() {
   resizeCanvas(windowWidth / 1.2, windowHeight / 1.2);
   centerCanvas();
+   startButton.position(
+    (width - startButton.width) / 2,
+    (height - startButton.height) / 2
+  );
+}
 }
 
 function spawnFlash(){
