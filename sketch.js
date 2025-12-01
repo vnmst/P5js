@@ -139,8 +139,8 @@ function setup() {
   startButton.style("font-weight", "bold");
   startButton.style("cursor", "pointer");
   
-  startButton.mousePressed(startAudio);
-  startButton.touchStarted(startAudio);
+  startButton.mousePressed(botaosome);
+  startButton.touchStarted(botaosome);
 
   reverb = new p5.Reverb();
   delay = new p5.Delay();
@@ -162,6 +162,7 @@ function setup() {
   for (let i = 0; i < numPads; i++) {
   images[i].resize(padSize-10, padSize-10);
 }
+  startAudio();
   recompensa.play();
 }
 
@@ -449,7 +450,10 @@ function applySingleSwap(i,newBuffer){
   }
 }
 // ---------------- CONTROLES ----------------
-function startAudio() { userStartAudio(); audioStarted=true; startButton.hide(); }
+function startAudio() { //userStartAudio();
+}
+
+function botaosome() { audioStarted=true; startButton.hide(); }
 
 
 function insidePad(pad,x,y){ return x>pad.x && x<pad.x+pad.w && y>pad.y && y<pad.y+pad.h; }
