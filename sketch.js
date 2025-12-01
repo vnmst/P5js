@@ -7,6 +7,7 @@ let cols = 6;
 let rows = 2;
 let img;
 let flashes = []; // cada flash = {x, y, size, alpha, color}
+ let canvas; 
 
 
 let padSize;
@@ -87,7 +88,8 @@ function preload() {
 
 // ---------------- SETUP ----------------
 function setup() {
-  let canvas = createCanvas(windowWidth / 2, windowHeight / 2.5);
+canvas = createCanvas(windowWidth / 1.2, windowHeight / 1.2);
+  centerCanvas();
   colorMode(HSB, 360, 100, 100, 255);
   rectMode(CORNER);
   imageMode(CENTER);
@@ -601,7 +603,10 @@ function touchEnded() {
   return false;
 }
 
-function windowResized(){ resizeCanvas(windowWidth,windowHeight); }
+function windowResized() {
+  resizeCanvas(windowWidth / 1.2, windowHeight / 1.2);
+  centerCanvas();
+}
 
 function spawnFlash(){
   let word=random(flashWords), x=random(width), y=random(height);
@@ -629,8 +634,8 @@ function triggerPad(pad){
   }
 }
 
-function keyPressed() {
-  if (key === 'S') { // tecla S para salvar
-    save(img, 'image5.png'); // img é a variável carregada com loadImage()
-  }
+function centerCanvas() {
+  let x = (windowWidth - width) / 2;
+  let y = (windowHeight - height) / 2;
+  canvas.position(x, y);
 }
