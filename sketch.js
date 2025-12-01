@@ -145,7 +145,7 @@ canvas = createCanvas(windowWidth / 1.2, windowHeight / 1.2);
     (width - startButton.width) / 2,
     (height - startButton.height) / 2
   );
-}
+
   
   startButton.mousePressed(startAudio);
   startButton.touchStarted(startAudio);
